@@ -5,6 +5,7 @@ import { xpToNext } from '../game/data/level';
 import { fmt, fmtClock } from '../game/format';
 import { useGame } from '../game/gameContext';
 import { computePlayerStats } from '../game/selectors';
+import { useSaveHealth } from '../hooks/useSaveHealth';
 
 export function TopBar({ onExit }: { onExit: () => void }) {
   const { state } = useGame();
@@ -77,6 +78,7 @@ export function TopBar({ onExit }: { onExit: () => void }) {
             {state.buff.icon} {Math.ceil(state.buff.remaining)}s
           </div>
         )}
+        <SaveIndicator />
         <div className="playtime" title="Spielzeit">
           {fmtClock(state.playTime)}
         </div>
@@ -85,5 +87,35 @@ export function TopBar({ onExit }: { onExit: () => void }) {
         </button>
       </div>
     </header>
+  );
+}
+
+/** Zeitpunkt der letzten erfolgreichen Sicherung — knapp, aber beruhigend. */
+function SaveIndicator() {
+  const { lastSavedAt } = useGame();
+  const health = useSaveHealth();
+
+  if (health.status === 'error') {
+    return (
+      <div className="save-indicator error" title="Es wird nicht gesichert — siehe Hinweis oben">
+        <span className="save-dot" aria-hidden="true" /> Nicht gesichert
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="save-indicator"
+      title={
+        lastSavedAt
+          ? `Zuletzt gesichert um ${new Date(lastSavedAt).toLocaleTimeString('de-DE')}`
+          : 'Wird alle zehn Sekunden gesichert'
+      }
+    >
+      <span className="save-dot" aria-hidden="true" />
+      {lastSavedAt
+        ? `gesichert ${new Date(lastSavedAt).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`
+        : 'gesichert'}
+    </div>
   );
 }

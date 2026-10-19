@@ -29,14 +29,22 @@ export function InventoryPanel() {
   const player = computePlayerStats(state);
   const gear = equippedItems(state);
 
-  const gearItems = state.inventory.filter((i) => ITEMS[i.defId]?.slot !== 'material');
+  // Ausgerüstete Gegenstände stehen in den Slots über dem Beutel. Sie dürfen
+  // hier nicht noch einmal auftauchen — sonst steht der Verkaufen-Knopf
+  // direkt neben dem eigenen Equipment.
+  const worn = new Set(Object.values(state.equipped).filter(Boolean) as string[]);
+
+  const gearItems = state.inventory.filter(
+    (i) => ITEMS[i.defId]?.slot !== 'material' && !worn.has(i.uid),
+  );
   const consumables = state.inventory.filter((i) => ITEMS[i.defId]?.slot === 'material');
+  const bagSlots = state.inventory.length - worn.size;
 
   return (
     <Panel
       title="Ausrüstung & Tasche"
       icon="🎒"
-      subtitle={`${state.inventory.length}/60 Plätze · ${fmt(player.damage)} Schaden · ${fmt(player.dps)} DPS · ${fmt(player.crit)}% Krit`}
+      subtitle={`${bagSlots}/60 Plätze · ${fmt(player.damage)} Schaden · ${fmt(player.dps)} DPS · ${fmt(player.crit)}% Krit`}
     >
       <div className="equip-row">
         {EQUIP_SLOTS.map((slot) => {
@@ -80,8 +88,9 @@ export function InventoryPanel() {
       <h3 className="section-title">Ausrüstung im Beutel</h3>
       {gearItems.length === 0 ? (
         <p className="hint">
-          Dein Beutel ist leer. Stell Gegenstände her oder erbeute sie von Gegnern — Grün bedeutet
-          „besser als aktuell ausgerüstet“.
+          {worn.size > 0
+            ? 'Alles, was du nicht trägst, ist weg — du hattest nichts Weiteres dabei. Handwerk und Beute füllen den Beutel wieder.'
+            : 'Dein Beutel ist leer. Stell Gegenstände her oder erbeute sie von Gegnern — Grün bedeutet „besser als aktuell ausgerüstet“.'}
         </p>
       ) : (
         <div className="bag-grid">

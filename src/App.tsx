@@ -6,6 +6,7 @@ import { InventoryPanel } from './components/InventoryPanel';
 import { LogPanel } from './components/LogPanel';
 import { OfflineModal } from './components/OfflineModal';
 import { QuestPanel } from './components/QuestPanel';
+import { SaveNotice } from './components/SaveNotice';
 import { StatsPanel } from './components/StatsPanel';
 import { TopBar } from './components/TopBar';
 import { GameProvider } from './components/GameProvider';
@@ -45,6 +46,8 @@ function Shell({ onExit }: { onExit: () => void }) {
 
       <div className="app-body">
         <main className="app-main">
+          <SaveNotice />
+
           <nav className="tabs">
             {TABS.map((t) => (
               <button

@@ -33,11 +33,13 @@ jobs:
       - name: Installieren
         run: npm ci
 
-      # typecheck läuft mit: Es soll nicht deployt werden, was nicht übersetzt.
+      # typecheck und die Simulation laufen mit: Es soll nicht deployt werden,
+      # was nicht übersetzt oder nicht spielbar ist.
       - name: Prüfen
         run: |
           npm run typecheck
           npm run smoke
+          npm run saves
 
       - name: Bauen
         run: npm run build

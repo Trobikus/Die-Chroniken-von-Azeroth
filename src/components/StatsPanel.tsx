@@ -3,10 +3,12 @@ import { getClass } from '../game/classes';
 import { clearSave, exportSave, importSave, saveGame } from '../game/save';
 import { fmt, fmtDuration, fmtInt } from '../game/format';
 import { useGame } from '../game/gameContext';
+import { useSaveHealth } from '../hooks/useSaveHealth';
 import { Panel } from './Panel';
 
 export function StatsPanel() {
-  const { state, dispatch } = useGame();
+  const { state, dispatch, lastSavedAt } = useGame();
+  const health = useSaveHealth();
   const [importText, setImportText] = useState('');
   const [feedback, setFeedback] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -47,6 +49,20 @@ export function StatsPanel() {
     setFeedback('Neues Spiel gestartet.');
   };
 
+  /** Lädt den Exportcode als Datei — die einzige Sicherung, die ein Browser nicht wegräumt. */
+  const downloadSave = () => {
+    const code = exportSave(state);
+    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 10);
+    link.href = url;
+    link.download = `chroniken-${state.charName.replace(/[^\w-]/g, '')}-${stamp}.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setFeedback('Datei heruntergeladen — lege sie an einem sicheren Ort ab.');
+  };
+
   return (
     <Panel title="Chronik & Spielstand" icon="📖" subtitle="Alles, was dein Charakter bisher vollbracht hat.">
       <div className="stats-grid">
@@ -58,30 +74,62 @@ export function StatsPanel() {
         ))}
       </div>
 
-      <h3 className="section-title">Spielstand</h3>
+      <h3 className="section-title">Sicherung</h3>
+      <div className={`backup-state ${health.status}`}>
+        <span className="backup-dot" aria-hidden="true" />
+        <div>
+          <b>
+            {health.status === 'error'
+              ? 'Es wird derzeit nicht gesichert'
+              : 'Dein Fortschritt wird laufend gesichert'}
+          </b>
+          <span>
+            {health.status === 'error'
+              ? health.reason === 'quota'
+                ? 'Der Speicher des Browsers ist voll. Aufräumen oder in einem anderen Fenster weiterspielen.'
+                : 'Der Browser blockiert das Schreiben. Im privaten Fenster geht das nicht.'
+              : `Zuletzt erfolgreich: ${lastSavedAt ? new Date(lastSavedAt).toLocaleTimeString('de-DE') : 'gerade eben'}. Der Stand liegt dreifach im Browser.`}
+          </span>
+        </div>
+      </div>
+
+      <div className="backup-warning">
+        <b>Browserdaten können verschwinden.</b> Wer den Zwischenspeicher leert oder die Seite aus
+        den Browserdaten entfernt, verliert den Helden. Bewahre deshalb ab und zu deinen
+        Exportcode auf — im privaten Fenster nützt er dir allerdings nichts.
+      </div>
+
       <div className="save-actions">
         <button
           className="btn"
           onClick={() => {
-            saveGame(state);
-            setFeedback('Spielstand gespeichert.');
+            const result = saveGame(state);
+            setFeedback(
+              result.status === 'ok'
+                ? `Gesichert um ${new Date(result.lastOkAt ?? Date.now()).toLocaleTimeString('de-DE')}.`
+                : 'Fehlgeschlagen — siehe Hinweis oben.',
+            );
           }}
         >
           💾 Jetzt speichern
         </button>
         <button
-          className="btn"
+          className="btn btn-primary"
           onClick={async () => {
             const code = exportSave(state);
             try {
               await navigator.clipboard.writeText(code);
-              setFeedback('Exportcode in die Zwischenablage kopiert.');
+              setFeedback('Exportcode in die Zwischenablage kopiert — jetzt irgendwo aufbewahren.');
             } catch {
-              setFeedback(code.slice(0, 400) + ' …');
+              setImportText(code);
+              setFeedback('Kopieren nicht möglich — der Code steht jetzt im Feld darunter.');
             }
           }}
         >
-          📤 Exportieren
+          📤 Sicherungskopie erstellen
+        </button>
+        <button className="btn btn-camp" onClick={downloadSave}>
+          💾 Als Datei sichern
         </button>
       </div>
 

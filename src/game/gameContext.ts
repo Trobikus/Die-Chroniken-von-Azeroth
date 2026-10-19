@@ -7,6 +7,10 @@ export interface GameContextValue {
   dispatch: Dispatch<Action>;
   offline: OfflineReport | null;
   dismissOffline: () => void;
+  /** true, wenn ein Spielstand aus einer Notablage wiederhergestellt wurde. */
+  recovered: boolean;
+  /** Zeitpunkt der letzten erfolgreichen Sicherung. */
+  lastSavedAt: number | null;
 }
 
 /**

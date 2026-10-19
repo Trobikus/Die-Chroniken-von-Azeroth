@@ -18,12 +18,14 @@ export function GameProvider({ children, initialState }: GameProviderProps) {
   const bootRef = useRef<LoadResult | null>(null);
   if (bootRef.current === null) {
     bootRef.current = initialState
-      ? { state: initialState, offline: null, hadSave: false }
+      ? { state: initialState, offline: null, hadSave: false, recovered: false }
       : loadGame(Date.now());
   }
 
   const [state, dispatch] = useReducer(reducer, bootRef.current.state);
   const [offline, setOffline] = useState<OfflineReport | null>(bootRef.current.offline);
+  const [recovered] = useState(bootRef.current.recovered);
+  const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
 
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -36,21 +38,34 @@ export function GameProvider({ children, initialState }: GameProviderProps) {
   }, []);
 
   useEffect(() => {
-    const persist = () => saveGame(stateRef.current);
+    const persist = () => {
+      const result = saveGame(stateRef.current);
+      if (result.status === 'ok') setLastSavedAt(result.lastOkAt);
+      return result;
+    };
 
-    if (!getSettings().autoSave) return;
-
+    // Diese drei Sicherungen laufen immer. Die Einstellung "Automatisch
+    // speichern" betrifft nur den Takt — wer sie ausschaltet, darf seinen
+    // Fortschritt beim Schließen der Seite trotzdem nicht verlieren.
     const onVisibility = () => {
       if (document.visibilityState === 'hidden') persist();
     };
+    const onPageHide = () => persist();
+    const onBeforeUnload = () => persist();
 
-    const timer = window.setInterval(persist, AUTOSAVE_MS);
-    window.addEventListener('pagehide', persist);
+    window.addEventListener('pagehide', onPageHide);
+    window.addEventListener('beforeunload', onBeforeUnload);
     document.addEventListener('visibilitychange', onVisibility);
 
+    let timer = 0;
+    if (getSettings().autoSave) {
+      timer = window.setInterval(persist, AUTOSAVE_MS);
+    }
+
     return () => {
-      window.clearInterval(timer);
-      window.removeEventListener('pagehide', persist);
+      if (timer) window.clearInterval(timer);
+      window.removeEventListener('pagehide', onPageHide);
+      window.removeEventListener('beforeunload', onBeforeUnload);
       document.removeEventListener('visibilitychange', onVisibility);
       persist();
     };
@@ -59,8 +74,8 @@ export function GameProvider({ children, initialState }: GameProviderProps) {
   const dismissOffline = useCallback(() => setOffline(null), []);
 
   const value = useMemo(
-    () => ({ state, dispatch, offline, dismissOffline }),
-    [state, offline, dismissOffline],
+    () => ({ state, dispatch, offline, dismissOffline, recovered, lastSavedAt }),
+    [state, offline, dismissOffline, recovered, lastSavedAt],
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

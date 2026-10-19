@@ -495,14 +495,15 @@ export function reducer(state: GameState, action: Action): GameState {
       const s = clone(state);
       const index = s.inventory.findIndex((i) => i.uid === action.uid);
       if (index < 0) return state;
+
+      // Ausgerüstete Gegenstände gehören dem Helden und lassen sich nicht verkaufen.
+      if (Object.values(s.equipped).includes(action.uid)) return state;
+
       const instance = s.inventory[index];
       const def = ITEMS[instance.defId];
       const mult = QUALITIES[instance.quality].mult;
       const price = Math.max(1, Math.round(def.sellPrice * mult));
       s.inventory.splice(index, 1);
-      for (const slot of Object.keys(s.equipped) as (keyof typeof s.equipped)[]) {
-        if (s.equipped[slot] === instance.uid) delete s.equipped[slot];
-      }
       s.gold += price;
       addLog(s, `${def.name} verkauft für ${price} Gold.`, 'system');
       return s;
