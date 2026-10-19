@@ -116,18 +116,6 @@ Die Wahl ist endgültig und prägt den ganzen Verlauf. Werte beziehen sich auf S
 | Klassen | 3 |
 | Stufen | bis 20 |
 
-## Skripte
-
-| Befehl | Wirkung |
-|---|---|
-| `npm run dev` | Entwicklungsserver mit Hot Reload |
-| `npm run build` | Produktions-Build nach `dist/` |
-| `npm run typecheck` | TypeScript prüfen |
-| `npm run smoke` | 30 Minuten Spielverlauf simulieren, Invarianten prüfen |
-| `npm run render` | Alle Bildschirme serverseitig rendern, auch mit kaputten Spielständen |
-| `npm test` | typecheck + smoke + render |
-| `npm run shots` | Screenshots unter `docs/` neu erzeugen |
-
 ## Aufbau
 
 ```
@@ -148,16 +136,38 @@ Die Spiellogik kennt React nicht. Deshalb lässt sich derselbe Code im Browser *
 Node-Prozess gegen echte Spielstände laufen lassen — das nutzen die Testläufe. Der Zufall läuft über
 einen seedbaren PRNG, der im Spielstand liegt: ein Spielverlauf ist exakt reproduzierbar.
 
-## Zwei Bugs, die die Tests gefunden haben
+## Drei Fehler, die die Tests gefunden haben
 
-Beim Bauen der Simulation fielen zwei Fehler auf, die im manuellen Spielen kaum aufgefallen wären:
+Beim Bauen der Prüfstände fielen drei Dinge auf, die im manuellen Spielen kaum aufgefallen wären:
 
 - **Handwerken lief in beliebig vielen Werkbänken gleichzeitig.** Damit war die Zeitökonomie wertlos —
   die Warteschlange hat keinen Sinn, wenn man sieben Stücke parallel starten kann.
 - **Außerhalb des Kampfes gab es keine Heilung.** Ein verletzter Held kam nicht mehr hoch und hing
   fest, bis genug Heiltränke gesammelt waren.
+- **Speicherfehler wurden kommentarlos geschluckt.** Im privaten Fenster oder bei vollem Speicher
+  ließ sich nichts ablegen — der Spieler hätte stundenlang gespielt, ohne es zu bemerken, und
+  wäre beim Schließen der Seite um alles gekommen.
 
-## Lizenz und Hinweis
+## Spielstand
+
+`npm run saves` prüft dreizehn Angriffsszenarien: Rundlauf, defekter, manipulierter und
+abgeschnittener Spielstand, voller Speicher, blockierter Speicher, alte Formatversion,
+zurückgestellte Uhr, Export und Import.
+
+Dagegen abgesichert:
+
+- **Drei identische Ablagen** statt einer, jede mit Prüfsumme. Ein halb geschriebener Wert kostet
+  nicht mehr den ganzen Helden.
+- **Fehler werden sichtbar.** Schlägt das Sichern fehl, steht ein roter Hinweis im Bild und die
+  Kopfzeile sagt „Nicht gesichert" — mit der Ursache, ob nun der Speicher voll ist oder der
+  Browser das Schreiben blockiert.
+- **Beim Schließen wird immer gesichert**, auch mit ausgeschaltetem Autospiel.
+- **Export als Datei**, weil sich Browserdaten wegräumen lassen, eine heruntergeladene Datei nicht.
+
+Was das System nicht kann: Es gibt keine Cloud. Wer den Zwischenspeicher leert, ist auf den
+Export angewiesen — deshalb ist die Sicherungskopie in der Chronik so auffällig platziert.
+
+## Skripte
 
 MIT — siehe [LICENSE](LICENSE).
 
