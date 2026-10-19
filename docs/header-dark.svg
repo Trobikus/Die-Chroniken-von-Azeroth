@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="Die Chroniken von Azeroth">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b4a7a"/>
+      <stop offset="45%" stop-color="#16233c"/>
+      <stop offset="100%" stop-color="#080c15"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff4cf"/>
+      <stop offset="38%" stop-color="#f0c451"/>
+      <stop offset="62%" stop-color="#a9781f"/>
+      <stop offset="100%" stop-color="#f7dd93"/>
+    </linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b3905c" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#b3905c"/>
+      <stop offset="100%" stop-color="#b3905c" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="0.5" cy="0.42" r="0.72">
+      <stop offset="45%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.78"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.55">
+      <stop offset="0%" stop-color="#f0b429" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="420" fill="url(#sky)"/>
+  <ellipse cx="640" cy="190" rx="430" ry="230" fill="url(#glow)"/>
+
+  <!-- Bergsilhouette -->
+  <path d="M0 420 L0 330 Q 150 268 250 318 Q 360 372 470 306 Q 590 234 700 300 Q 810 366 920 312 Q 1050 248 1150 306 Q 1220 344 1280 322 L1280 420 Z" fill="#101a2c"/>
+  <path d="M0 420 L0 362 Q 190 316 330 356 Q 470 396 620 344 Q 780 290 930 346 Q 1090 404 1280 358 L1280 420 Z" fill="#0b1220"/>
+
+  <!-- Glut -->
+  <g fill="#ffb648">
+    <circle cx="148" cy="286" r="1.6" opacity="0.55"/>
+    <circle cx="352" cy="212" r="1.2" opacity="0.40"/>
+    <circle cx="506" cy="300" r="1.5" opacity="0.50"/>
+    <circle cx="742" cy="238" r="1.3" opacity="0.45"/>
+    <circle cx="902" cy="302" r="1.6" opacity="0.55"/>
+    <circle cx="1094" cy="226" r="1.2" opacity="0.40"/>
+    <circle cx="1198" cy="318" r="1.5" opacity="0.50"/>
+    <circle cx="252" cy="342" r="1.3" opacity="0.35"/>
+    <circle cx="668" cy="352" r="1.2" opacity="0.35"/>
+  </g>
+
+  <!-- Titel -->
+  <g text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">
+    <text x="640" y="112" font-size="21" letter-spacing="11" fill="#cdb388">W&#183;&#183;&#183;&#183; WORLD &#183;&#183;&#183;&#183;</text>
+
+    <text x="640" y="228" font-size="104" letter-spacing="14" font-weight="bold"
+          fill="#0e0903" opacity="0.85">WARCRAFT</text>
+    <text x="640" y="224" font-size="104" letter-spacing="14" font-weight="bold"
+          fill="url(#gold)" stroke="#1e1204" stroke-width="1.5">WARCRAFT</text>
+
+    <text x="640" y="272" font-size="19" letter-spacing="8.5" fill="#9b8259">DIE CHRONIKEN VON AZEROTH</text>
+  </g>
+
+  <rect x="392" y="298" width="496" height="1.5" fill="url(#rule)"/>
+
+  <g text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#a8967a" font-style="italic">
+    <text x="640" y="334">Ein inkrementelles Fantasy-RPG &#183; Ein Held &#183; Drei Zonen</text>
+  </g>
+
+  <rect width="1280" height="420" fill="url(#vignette)"/>
+</svg>

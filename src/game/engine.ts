@@ -477,6 +477,8 @@ export function reducer(state: GameState, action: Action): GameState {
       if (!instance) return state;
       const def = ITEMS[instance.defId];
       if (!def || def.slot === 'material') return state;
+      // Erneut anklicken ändert nichts — und soll das Protokoll nicht fluten.
+      if (s.equipped[def.slot] === instance.uid) return state;
       s.equipped[def.slot] = instance.uid;
       addLog(s, `${def.name} ausgerüstet.`, 'system');
       return s;

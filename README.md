@@ -1,81 +1,166 @@
-# Die Chroniken von Azeroth
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/header-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/header-light.svg">
+    <img alt="World of Warcraft — Die Chroniken von Azeroth" src="docs/header-light.svg" width="100%">
+  </picture>
+</p>
 
-[![Deploy](https://github.com/Trobikus/Die-Chroniken-von-Azeroth/actions/workflows/deploy.yml/badge.svg)](https://github.com/Trobikus/Die-Chroniken-von-Azeroth/actions/workflows/deploy.yml)
-[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <a href="https://trobikus.github.io/Die-Chroniken-von-Azeroth/"><b>▶ Jetzt im Browser spielen</b></a>
+  &nbsp;·&nbsp;
+  <a href="#loslegen">Lokal starten</a>
+  &nbsp;·&nbsp;
+  <a href="#screenshots">Screenshots</a>
+</p>
 
-Ein inkrementelles Fantasy-RPG im Stil von World of Warcraft — für einen einzelnen Helden, im Browser,
-ohne Server, ohne Account.
+<p align="center">
+  <img alt="Deploy" src="https://github.com/Trobikus/Die-Chroniken-von-Azeroth/actions/workflows/deploy.yml/badge.svg" height="20">
+  <img alt="Lizenz MIT" src="https://img.shields.io/badge/Lizenz-MIT-e0a01c?style=flat-square" height="20">
+  <img alt="React 18" src="https://img.shields.io/badge/React-18-61dafb?style=flat-square" height="20">
+  <img alt="TypeScript 5" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square" height="20">
+  <img alt="Vite 5" src="https://img.shields.io/badge/Vite-5-646cff?style=flat-square" height="20">
+  <img alt="Ohne Server" src="https://img.shields.io/badge/Server-keiner-6f42c1?style=flat-square" height="20">
+</p>
 
-**Direkt spielen:** <https://trobikus.github.io/Die-Chroniken-von-Azeroth/>
+---
 
-Du jägst, sammelst und handwerkst, während deine Betriebe im Hintergrund weiterarbeiten. Auch dann,
-wenn du die Seite längst geschlossen hast.
+Ein inkrementelles Fantasy-RPG im Stil von World of Warcraft — **für einen einzelnen Helden, im
+Browser, ohne Server und ohne Account.** Du jägst, sammelst und handwerkst, während deine Betriebe im
+Hintergrund weiterarbeiten. Auch dann, wenn du die Seite längst geschlossen hast.
 
-## Spielen
+<img alt="Der Kreislauf eines Helden: Jagen, Handwerk, Betriebe, Aufträge" src="docs/kreislauf.svg" width="100%">
+
+## Loslegen
+
+**Im Browser** — nichts installieren, einfach
+[die veröffentlichte Version öffnen](https://trobikus.github.io/Die-Chroniken-von-Azeroth/).
+Der Spielstand liegt im `localStorage` des Browsers.
+
+**Lokal** — für Entwicklung und zum Ändern:
 
 ```bash
+git clone https://github.com/Trobikus/Die-Chroniken-von-Azeroth.git
+cd Die-Chroniken-von-Azeroth
 npm install
 npm run dev
 ```
 
-Danach auf <http://localhost:5173/> öffnen. Es gibt nichts zu installieren außer den
-Abhängigkeiten — der Spielstand liegt im `localStorage` des Browsers.
+Dann auf <http://localhost:5173/> öffnen.
 
-## Wie der Kreislauf läuft
+## Klassen
 
-| Baustein | Was er tut |
-| --- | --- |
-| **Jagen** | Echtzeitkampf gegen Gegner in drei Zonen. Bringt Erfahrung, Gold und Materialien. |
-| **Handwerk** | Zehn Rezepte auf *einem* Handwerksplatz mit Warteschlange. Jedes Stück würfelt seine Qualität neu — von Gewöhnlich bis Legendär. |
-| **Betriebe** | Vier Betriebe erzeugen Materialien ohne Zutun. Der Ausbau kostet Gold, die Preise steigen mit jeder Stufe. |
-| **Aufträge** | Werden automatisch angenommen und abgerechnet, sobald die Ziele erfüllt sind. |
-| **Klassen** | Krieger, Waldläufer und Paladin unterscheiden sich in Startwerten und dauerhaften Vorteilen. |
+Die Wahl ist endgültig und prägt den ganzen Verlauf. Werte beziehen sich auf Stufe 1 ohne Ausrüstung.
 
-Der Fortschritt wird alle zehn Sekunden und beim Verlassen der Seite gespeichert. Wer länger weg ist,
-bekommt beim Zurückkommen eine Abrechnung: die Betriebe und das laufende Handwerk arbeiten zu 50 %
-weiter, gedeckelt auf acht Stunden.
+<table>
+  <thead>
+    <tr><th>Klasse</th><th>Schaden</th><th>Angriffszeit</th><th>Lebenspunkte</th><th>Krit</th><th>Dauerhafter Vorteil</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Krieger</b><br>Ein Schild, ein Schwert, keine Fragen.</td>
+      <td align="right"><b>12,1</b></td><td align="right">1,75 s</td><td align="right">67</td><td align="right">2,0 %</td>
+      <td>6 % weniger erlittener Schaden</td>
+    </tr>
+    <tr>
+      <td><b>Waldläufer</b><br>Ein Pfeil. Sehr schnell.</td>
+      <td align="right">8,0</td><td align="right"><b>1,58 s</b></td><td align="right">62</td><td align="right"><b>6,5 %</b></td>
+      <td>+4 % Krit-Chance, schnellste Folge</td>
+    </tr>
+    <tr>
+      <td><b>Paladin</b><br>Das Licht schließt die Wunden.</td>
+      <td align="right">8,0</td><td align="right">1,60 s</td><td align="right"><b>72</b></td><td align="right">3,1 %</td>
+      <td>+1,2 % Regeneration pro Sekunde</td>
+    </tr>
+  </tbody>
+</table>
 
-## Weitere Skripte
+## Screenshots
 
-```bash
-npm run build       # Produktions-Build nach dist/
-npm run typecheck   # TypeScript prüfen
-npm run smoke       # 30 Minuten Spielverlauf simulieren und Invarianten prüfen
-npm run render      # alle Bildschirme serverseitig rendern, auch mit kaputten Spielständen
-npm test            # typecheck + smoke + render
-```
+<table>
+  <tr>
+    <td width="50%"><img alt="Hauptmenü" src="docs/01-hauptmenue.png"></td>
+    <td width="50%"><img alt="Charaktererstellung" src="docs/02-charaktererstellung.png"></td>
+  </tr>
+  <tr>
+    <td align="center">Hauptmenü</td>
+    <td align="center">Charaktererstellung</td>
+  </tr>
+  <tr>
+    <td width="50%"><img alt="Jagdgebiet mit laufendem Kampf" src="docs/03-jagd.png"></td>
+    <td width="50%"><img alt="Handwerk" src="docs/04-handwerk.png"></td>
+  </tr>
+  <tr>
+    <td align="center">Jagdgebiet im Kampf</td>
+    <td align="center">Handwerk</td>
+  </tr>
+  <tr>
+    <td width="50%"><img alt="Tasche und Ausrüstung" src="docs/05-tasche.png"></td>
+    <td width="50%"><img alt="Aufträge" src="docs/06-auftraege.png"></td>
+  </tr>
+  <tr>
+    <td align="center">Tasche</td>
+    <td align="center">Aufträge</td>
+  </tr>
+</table>
 
-`smoke` und `render` brauchen kein `npm install`-Rundum: sie bündeln sich mit dem mitgelieferten
-esbuild und laufen direkt in Node.
+## Umfang
+
+| | |
+|---|---|
+| Zonen | Elwynn-Wald, Westfall, Nachtwolf-Ufer |
+| Gegner | 6, darunter der Alpha-Nachtwolf als Elite-Boss |
+| Rezepte | 10 in drei Berufen, auf einem Handwerksplatz |
+| Betriebe | 4 mit exponentiellen Ausbaukosten |
+| Aufträge | 10, automatisch angenommen und abgerechnet |
+| Klassen | 3 |
+| Stufen | bis 20 |
+
+## Skripte
+
+| Befehl | Wirkung |
+|---|---|
+| `npm run dev` | Entwicklungsserver mit Hot Reload |
+| `npm run build` | Produktions-Build nach `dist/` |
+| `npm run typecheck` | TypeScript prüfen |
+| `npm run smoke` | 30 Minuten Spielverlauf simulieren, Invarianten prüfen |
+| `npm run render` | Alle Bildschirme serverseitig rendern, auch mit kaputten Spielständen |
+| `npm test` | typecheck + smoke + render |
+| `npm run shots` | Screenshots unter `docs/` neu erzeugen |
 
 ## Aufbau
 
 ```
 src/
-  game/          Spiellogik ohne React — deterministic und im Node testbar
+  game/          Spiellogik ohne React — deterministisch und im Node testbar
     data/        Items, Rezepte, Betriebe, Zonen, Aufträge, Level-Kurve
     engine.ts    Reducer: Kampf, Handwerk, Produktion, Aufträge
+    selectors.ts berechnet Heldenwerte aus Stufe, Ausrüstung und Klasse
     save.ts      Serialisierung, Offline-Fortschritt, Import/Export
   components/    Panels der Ingame-Ansicht
   screens/       Hauptmenü, Charaktererstellung, Optionen
   hooks/         React-Bindings
-scripts/         Simulations- und Render-Tests
+scripts/         Simulations-, Render- und Screenshot-Tests
+docs/            Bilder für diese README
 ```
 
-Die Spiellogik kennt React nicht. Deshalb lässt sich derselbe Code im Browser *und* in einem
-Node-Prozess gegen echte Spielstände laufen lassen — das nutzen die beiden Testläufe.
+Die Spiellogik kennt React nicht. Deshalb lässt sich derselbe Code im Browser **und** in einem
+Node-Prozess gegen echte Spielstände laufen lassen — das nutzen die Testläufe. Der Zufall läuft über
+einen seedbaren PRNG, der im Spielstand liegt: ein Spielverlauf ist exakt reproduzierbar.
 
-## Stand
+## Zwei Bugs, die die Tests gefunden haben
 
-Vertikaler Schnitt: drei Zonen, sechs Gegner, zehn Rezepte, vier Betriebe, zehn Aufträge, drei
-Klassen, bis Stufe 20. Alles speichert lokal, es gibt keine Serverkomponente.
+Beim Bauen der Simulation fielen zwei Fehler auf, die im manuellen Spielen kaum aufgefallen wären:
 
-## Hinweis
+- **Handwerken lief in beliebig vielen Werkbänken gleichzeitig.** Damit war die Zeitökonomie wertlos —
+  die Warteschlange hat keinen Sinn, wenn man sieben Stücke parallel starten kann.
+- **Außerhalb des Kampfes gab es keine Heilung.** Ein verletzter Held kam nicht mehr hoch und hing
+  fest, bis genug Heiltränke gesammelt waren.
+
+## Lizenz und Hinweis
+
+MIT — siehe [LICENSE](LICENSE).
 
 Fan-Projekt zu World of Warcraft. Es verwendet keine Originalgrafiken, -Texte oder -Audio von
 Blizzard Entertainment. World of Warcraft ist eine eingetragene Marke von Blizzard Entertainment.
 Dieses Projekt steht in keiner Verbindung zu Blizzard.
-
-## Lizenz
-
-MIT — siehe [LICENSE](LICENSE).

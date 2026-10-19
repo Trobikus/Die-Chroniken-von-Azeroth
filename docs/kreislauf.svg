@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 340" width="1280" height="340" role="img" aria-label="Die Spielschleife: Jagen, Handwerk, Betriebe, Aufträge">
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2228"/>
+      <stop offset="100%" stop-color="#15121a"/>
+    </linearGradient>
+    <linearGradient id="goldTxt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe07a"/>
+      <stop offset="100%" stop-color="#e0a01c"/>
+    </linearGradient>
+    <marker id="tip" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#c8aa6e"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="340" fill="#0b0a0c"/>
+
+  <g font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <text x="640" y="50" font-size="15" letter-spacing="5" fill="#8a7a60">DER KREISLAUF EINES HELDEN</text>
+  </g>
+  <rect x="440" y="66" width="400" height="1" fill="#6b5636" opacity="0.7"/>
+
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <!-- Jagen -->
+    <g>
+      <rect x="48" y="102" width="272" height="146" rx="4" fill="url(#panel)" stroke="#6b5636" stroke-width="1"/>
+      <rect x="48" y="102" width="272" height="4" fill="#c0392b"/>
+      <text x="184" y="146" font-size="16" letter-spacing="1.5" fill="url(#goldTxt)">JAGEN</text>
+      <text x="184" y="178" font-size="11.5" fill="#b6a684">Echtzeitkampf in drei</text>
+      <text x="184" y="196" font-size="11.5" fill="#b6a684">Zonen. Bringt Erfahrung,</text>
+      <text x="184" y="214" font-size="11.5" fill="#b6a684">Gold und Materialien.</text>
+    </g>
+
+    <!-- Handwerk -->
+    <g>
+      <rect x="352" y="102" width="272" height="146" rx="4" fill="url(#panel)" stroke="#6b5636" stroke-width="1"/>
+      <rect x="352" y="102" width="272" height="4" fill="#b3891a"/>
+      <text x="488" y="146" font-size="16" letter-spacing="1.5" fill="url(#goldTxt)">HANDWERKEN</text>
+      <text x="488" y="178" font-size="11.5" fill="#b6a684">Zehn Rezepte auf einem</text>
+      <text x="488" y="196" font-size="11.5" fill="#b6a684">Handwerksplatz mit</text>
+      <text x="488" y="214" font-size="11.5" fill="#b6a684">Warteschlange.</text>
+    </g>
+
+    <!-- Betriebe -->
+    <g>
+      <rect x="656" y="102" width="272" height="146" rx="4" fill="url(#panel)" stroke="#6b5636" stroke-width="1"/>
+      <rect x="656" y="102" width="272" height="4" fill="#5b8c3a"/>
+      <text x="792" y="146" font-size="16" letter-spacing="1.5" fill="url(#goldTxt)">BETRIEBE</text>
+      <text x="792" y="178" font-size="11.5" fill="#b6a684">Vier Betriebe erzeugen</text>
+      <text x="792" y="196" font-size="11.5" fill="#b6a684">Material ohne Zutun.</text>
+      <text x="792" y="214" font-size="11.5" fill="#b6a684">Ausbau kostet Gold.</text>
+    </g>
+
+    <!-- Aufträge -->
+    <g>
+      <rect x="960" y="102" width="272" height="146" rx="4" fill="url(#panel)" stroke="#6b5636" stroke-width="1"/>
+      <rect x="960" y="102" width="272" height="4" fill="#b168d8"/>
+      <text x="1096" y="146" font-size="16" letter-spacing="1.5" fill="url(#goldTxt)">AUFTRÄGE</text>
+      <text x="1096" y="178" font-size="11.5" fill="#b6a684">Werden angenommen</text>
+      <text x="1096" y="196" font-size="11.5" fill="#b6a684">und abgerechnet, sobald</text>
+      <text x="1096" y="214" font-size="11.5" fill="#b6a684">das Ziel erfüllt ist.</text>
+    </g>
+  </g>
+
+  <!-- Pfeile zwischen den Stationen -->
+  <g stroke="#c8aa6e" stroke-width="2.5" marker-end="url(#tip)" fill="none" opacity="0.85">
+    <path d="M328 175 L344 175"/>
+    <path d="M632 175 L648 175"/>
+    <path d="M936 175 L952 175"/>
+  </g>
+
+  <!-- Rückweg -->
+  <path d="M1096 256 L1096 282 L184 282 L184 256" stroke="#6b5636" stroke-width="2"
+        stroke-dasharray="7 6" fill="none" marker-end="url(#tip)"/>
+
+  <g font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" font-style="italic">
+    <text x="640" y="272" font-size="13" fill="#7d6e56">Mehr Stufe, bessere Ausrüstung, bessere Zonen &#8212; und zurück an den Anfang</text>
+    <text x="640" y="322" font-size="13" fill="#8a7a60">Bleibst du weg, arbeiten die Betriebe weiter: zu 50 % Wirksamkeit, gedeckelt auf acht Stunden.</text>
+  </g>
+</svg>
