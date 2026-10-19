@@ -1,7 +1,12 @@
 # Die Chroniken von Azeroth
 
+[![Deploy](https://github.com/Trobikus/Die-Chroniken-von-Azeroth/actions/workflows/deploy.yml/badge.svg)](https://github.com/Trobikus/Die-Chroniken-von-Azeroth/actions/workflows/deploy.yml)
+[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-yellow.svg)](LICENSE)
+
 Ein inkrementelles Fantasy-RPG im Stil von World of Warcraft — für einen einzelnen Helden, im Browser,
 ohne Server, ohne Account.
+
+**Direkt spielen:** <https://trobikus.github.io/Die-Chroniken-von-Azeroth/>
 
 Du jägst, sammelst und handwerkst, während deine Betriebe im Hintergrund weiterarbeiten. Auch dann,
 wenn du die Seite längst geschlossen hast.
